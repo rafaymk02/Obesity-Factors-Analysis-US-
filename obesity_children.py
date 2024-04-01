@@ -1,6 +1,6 @@
 import pandas as pd
 import plotly as px
-
+    
 def remove_single_unique(df):
     uniques = []
     
@@ -20,7 +20,12 @@ def remove_num_columns(df):
             nonNum.append(col)
     return df.loc[:, nonNum]
 
-def final(df):
+def convert_time(df):
+    time = df['YEAR'].astype(str)
+    time_range = time.split('-')
+    pd.date_range(start = time_range[0], end = time_range[1])
+
+def final_clean(df):
     df = df.loc[:, df.columns != 'FLAG']
     
     sex_race_his_obesity = df[df['STUB_NAME'] == 'Sex and race and Hispanic origin']
@@ -31,4 +36,3 @@ def final(df):
     age_obesity = df[df['STUB_NAME'] == 'Age']
 
     return sex_race_his_obesity, race_his_obesity, total_obesity, poverty_obesity, sex_obesity, age_obesity
-    
