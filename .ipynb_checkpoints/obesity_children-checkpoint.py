@@ -57,16 +57,15 @@ def obesity_Visual1(df):
     fig.show()
 
 def obesity_Visual2(df):
-    below_100_df = df[df['STUB_LABEL'] == 'Below 100%']
-    below_100_df['YEAR'] = pd.to_datetime(below_100_df['YEAR'], format='%Y-%m-%d')
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(data=below_100_df, x='YEAR', y='ESTIMATE', hue='AGE', marker='o')
-    plt.title('Poverty Level Below 100% Over the Years for Different Age Groups')
-    plt.xlabel('Year')
-    plt.ylabel('Poverty Level (%)')
-    plt.legend(title='Age')
-    plt.grid(True)
-    plt.show()
+    df = df.loc[df['AGE'] == '2-19 years']
+    df.rename(columns = {"STUB_LABEL": "RACE"}, inplace = True)
+    fig = px.line(df, x="YEAR", y="ESTIMATE", color="RACE", title="Obesity Percentage Per Year Based On Race")
+    
+    fig.update_xaxes(title_text="YEARS", tickfont=dict(size=10))
+    fig.update_yaxes(title_text="Obesity rate (%)")
+    
+    fig.update_traces(line=dict(width=2.75))
+    fig.show()
 
 
 
