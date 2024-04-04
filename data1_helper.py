@@ -48,7 +48,7 @@ def getMapping(df):
     return panelDict, unitDict, stubNameDict, stubLabelDict, yearDict, ageDict
 
 ######## Cleaning Data Helper ########
-def cleanData1(df):
+def cleanGenderRace(df):
     """
     Clean data 1 to get data containing: gender, race, year = 2015-2018 , unit = age-adjusted
     """
@@ -60,11 +60,11 @@ def cleanData1(df):
     raceDict = {3.111: "White", 3.112: "White", 3.121: "Black or African American", 3.122: "Black or African American", 3.131: "Asian", 
                 3.132: "Asian", 3.241: "Hispanic or Latino", 3.242: "Hispanic or Latino", 3.251: "Hispanic or Latino: Mexican origin", 
                 3.252: "Hispanic or Latino: Mexican origin"}
-    raceGender_df["Gender"] = raceGender_df["STUB_LABEL_NUM"].map(genderDict)
-    raceGender_df["Race"] = raceGender_df["STUB_LABEL_NUM"].map(raceDict)
+    raceGender_df.loc[:, ["Gender"]] = raceGender_df["STUB_LABEL_NUM"].map(genderDict)
+    raceGender_df.loc[:, ["Race"]] = raceGender_df["STUB_LABEL_NUM"].map(raceDict)
     return raceGender_df
 
-def cleanData2(df):
+def cleanAge(df):
     """
     Clean data 1 to get data containing: age, unit_num = crude, year = 2015-2018
     """
@@ -76,10 +76,42 @@ def cleanData2(df):
     ageDict = {6.11: '20-34 years', 6.12: '35-44 years', 6.13: '45-54 years', 6.14: '55-64 years', 6.15: '65-74 years', 6.16: '75 years and over',
            6.21: '20-34 years', 6.22: '35-44 years', 6.23: '45-54 years', 6.24: '55-64 years', 6.25: '65-74 years', 6.26: '75 years and over'}
     
-    age_df["Gender"] = age_df["STUB_LABEL_NUM"].map(genderDict)
-    age_df["Age"] = age_df["STUB_LABEL_NUM"].map(ageDict)
+    age_df.loc[:, ["Gender"]] = age_df["STUB_LABEL_NUM"].map(genderDict)
+    age_df.loc[:, ["Age"]] = age_df["STUB_LABEL_NUM"].map(ageDict)
     return age_df
 
+######## Visualization Helper ########
+def obesityRaceVsObesity(raceGender_df):
+    # race vs each level of obesity:
+    obesity1_df = raceGender_df[raceGender_df["PANEL_NUM"] == 4]
+    raceObesity1 = obesity1_df[["Gender", "Race", "ESTIMATE", "SE"]]
+    
+    obesity2_df = raceGender_df[raceGender_df["PANEL_NUM"] == 5]
+    raceObesity2 = obesity2_df[["Gender", "Race", "ESTIMATE", "SE"]]
+    
+    obesity3_df = raceGender_df[raceGender_df["PANEL_NUM"] == 6]
+    raceObesity3 = obesity3_df[["Gender", "Race", "ESTIMATE", "SE"]]
+
+    fig, axes = plt.subplots(1, 3, figsize=(13, 4))
+
+    ax1 = sns.barplot(ax=axes[0], data=raceObesity1, x="Race", y="ESTIMATE", hue="Gender", palette=["#2986cc", "#c90076"])
+    ax2 = sns.barplot(ax=axes[1], data=raceObesity2, x="Race", y="ESTIMATE", hue="Gender", palette=["#2986cc", "#c90076"])
+    ax3 = sns.barplot(ax=axes[2], data=raceObesity3, x="Race", y="ESTIMATE", hue="Gender", palette=["#2986cc", "#c90076"])
+    ax1.set_title("Grade 1 Obesity (30.0 <= BMI <= 34.9)")
+    ax1.set_ylabel("Percentage of Population")
+    ax1.set_xlabel(None)
+    ax1.set_xticklabels(ax1.get_xticklabels(), rotation=35, ha="right")
+    ax2.set_title("Grade 2 Obesity (35.0 <= BMI <= 39.9)")
+    ax2.set_ylabel("Percentage of Population")
+    ax2.set_xlabel(None)
+    ax2.set_xticklabels(ax2.get_xticklabels(), rotation=35, ha="right")
+    ax3.set_title("Grade 3 Obesity (BMI >=40.0)")
+    ax3.set_ylabel("Percentage of Population")
+    ax3.set_xlabel(None)
+    ax3.set_xticklabels(ax3.get_xticklabels(), rotation=35, ha="right")
+    
+    fig.suptitle("Asians have less obesity rate than people of other races in all levels of Obesity", fontsize=16, y=1.05)
+    
 ######## Machine learning Helper ########
 def getMiddleYear(yearDict):
     middleYearDict = {}
