@@ -184,3 +184,25 @@ class LinearRegressionModel():
         Predict rate of obesity based on the input year x
         """
         return list(map(lambda x: self.slope * x + self.intercept, x))
+
+def fitAndEvaluate(model, x, y):
+    """
+    train the model and evaluate it
+    """
+    model.fit(x, y)
+    print("mean squared error: ", evaluateModel(model, x, y))
+
+def plotML(generalObesity, linRegressML, x):
+    """
+    plot the best fit model and the data
+    """
+    ax = sns.scatterplot(generalObesity, x="MiddleYear", y="ESTIMATE")
+    ax.set_xlabel(None)
+    ax.set_ylabel("Pecentage of Population")
+    
+    # plot the linear regression best fit line
+    predictedY = linRegressML.predict(x)
+    predicted2024 = round(linRegressML.predict([2024])[0], 2) # get predicted rate of obesity in 2024
+    title = "Consistent Increased rate of obesity in the US.\nThe rate of obesity in the US in 2024 is predicted to be " + str(predicted2024) + "%"
+    plt.title(title)
+    plt.plot(x, predictedY, 'r')
