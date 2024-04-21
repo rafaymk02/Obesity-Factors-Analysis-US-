@@ -50,7 +50,7 @@ def obesity_Visual1(df):
     df['STUB_LABEL'] = pd.Categorical(df['STUB_LABEL'], categories=['Below 100%', '100%-199%', '200%-399%', '400% or more'], ordered = False)
     estimatePerYear = (df.groupby(['STUB_LABEL', 'AGE'])['ESTIMATE'].sum() / df.groupby(['STUB_LABEL', 'AGE'])['ESTIMATE'].count()).reset_index()
     fig = px.bar(estimatePerYear, x="STUB_LABEL", y="ESTIMATE", color="AGE",
-                 title="Obesity Estimate based on Poverty Level and Age in individuals aged 2-19",
+                 title="Adolescents Below the Poverty Line Face Highest Obesity Rates from Ages 2-19 ",
                  labels={'STUB_LABEL': 'Poverty Levels (Highest to Least)', 'ESTIMATE': 'Obesity Rate (%)'},
                  barmode='group')
 
