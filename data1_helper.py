@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import sklearn.metrics as sm
 
+
 ######## Data understanding Helper ########
 def getInfo(df):
     """
@@ -206,3 +207,29 @@ def plotML(generalObesity, linRegressML, x):
     title = "Consistent Increased rate of obesity in the US.\nThe rate of obesity in the US in 2024 is predicted to be " + str(predicted2024) + "%"
     plt.title(title)
     plt.plot(x, predictedY, 'r')
+def poverty_visual(poverty_df):
+    poverty_df = df.loc[:,["PANEL", "UNIT", "STUB_NAME", "STUB_LABEL", "YEAR", "AGE", "ESTIMATE", "FLAG", "PANEL_NUM"]]
+    poverty_df = poverty_df.loc[poverty_df["UNIT"] != "Percent of population, age-adjusted"]
+    poverty_df = poverty_df.loc[poverty_df["STUB_NAME"] == "Percent of poverty level"]
+    poverty_df = poverty_df.loc[(poverty_df["PANEL_NUM"] == 1) | (poverty_df["PANEL_NUM"] == 2) | (poverty_df["PANEL_NUM"] == 3)]
+    poverty_1988 = poverty_df.loc[poverty_df["YEAR"] == "1988-1994"]
+    poverty_2018 = poverty_df.loc[poverty_df["YEAR"] == "2015-2018"]
+    
+    fig, axes = plt.subplots(1, 2, figsize=(16, 3.5)) 
+    ax1 = sns.barplot(data=poverty_1988, x="PANEL", y="ESTIMATE", hue="STUB_LABEL", ax=axes[0])
+    ax1.set_title('1988')
+    ax1.set_xlabel('BMI (Normal to Obese)')
+    ax1.set_ylabel('Total Percentage(%)')
+    ax1.legend(title='STUB_LABEL')
+    ax1.set_xticklabels(['BMI(18.5-24.9)','BMI(25+)', 'BMI(30+)'])
+    ax2 = sns.barplot(data=poverty_2018, x="PANEL", y="ESTIMATE", hue="STUB_LABEL", ax=axes[1])
+    ax2.set_title('2018')
+    ax2.set_xlabel('BMI (Normal to Obese)')
+    ax2.set_ylabel('Total Percentage(%)')
+    ax2.legend(title='STUB_LABEL')
+    ax2.set_xticklabels(['BMI(18.5-24.9)','BMI(25+)', 'BMI(30+)'])
+    
+    ax1.legend_.set_title('Poverty Levels')
+    ax2.legend_.set_title('Poverty Levels')
+    fig.suptitle("High-Income Adults in 2018 are more likely to be obese than Low-Income Adults in 1988", fontsize=16, y=1.05)
+    plt.show()
