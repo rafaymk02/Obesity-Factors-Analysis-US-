@@ -81,7 +81,7 @@ def baseline_model(y_test, y_pred):
     # Calculate baseline confusion matrix
     baseline_confusion_matrix = confusion_matrix(y_test, baseline_predictions)
 
-    print("Baseline Accuracy:", baseline_accuracy)
+    print("\nBaseline Accuracy:", baseline_accuracy)
     print("Baseline Confusion Matrix:")
     print(baseline_confusion_matrix)
 
