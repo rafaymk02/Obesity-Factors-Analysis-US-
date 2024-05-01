@@ -1,4 +1,3 @@
-
 import pandas as pd
 
 def clean_data(data_path):
@@ -18,5 +17,5 @@ def clean_data(data_path):
     return df
 
 if __name__ == "__main__":
-    data_path = 'physicaldataset2.csv'
+    data_path = "Datasets/Nutrition__Physical_Activity__and_Obesity_-_Behavioral_Risk_Factor_Surveillance_System.csv"
     clean_data(data_path)
