@@ -1,7 +1,19 @@
-418 Mind Masters
+# 418 Mind Masters
 
-To run the interactive map To run our interactive map in Jupyter Notebook, ensure you have the required libraries by installing Pandas, Plotly, and ipywidgets. 
- 
-Command to install: pip install pandas plotly ipywidgets
- 
-Once all the required packages are installed, open the final_report notebook and execute the first cell at the very top to import necessary libraries and files. You may then run the cell for our interactive visualization so that you may use the map and drop down menu to choose your choice of race and view obesity rates by state.
+## Interactive Map Setup
+
+To run our interactive map in Jupyter Notebook, follow these steps:
+
+1. **Install Required Libraries**:
+   Ensure you have the required libraries by running the following command:
+pip install pandas plotly ipywidgets
+
+
+2. **Open the Notebook**:
+Once all the required packages are installed, open the `final_report.ipynb` notebook.
+
+3. **Import Libraries**:
+Execute the first cell at the very top of the notebook to import necessary libraries and files.
+
+4. **Run the Interactive Visualization**:
+Run the cell for our interactive visualization. You can then use the map and dropdown menu to select a race and view obesity rates by state, and an overall view with all races.
