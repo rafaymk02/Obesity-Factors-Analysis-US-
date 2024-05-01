@@ -4,7 +4,7 @@ from ipywidgets import interact, Dropdown
 
 #functions to load data
 def load_and_prepare_data():
-    df = pd.read_csv('Nutrition__Physical_Activity__and_Obesity_-_Behavioral_Risk_Factor_Surveillance_System.csv')
+    df = pd.read_csv('Datasets/Nutrition__Physical_Activity__and_Obesity_-_Behavioral_Risk_Factor_Surveillance_System.csv')
     obesity_df = df[(df['Class'] == 'Obesity / Weight Status') &
                     (df['Question'] == 'Percent of adults aged 18 years and older who have obesity')]
     obesity_df = obesity_df.dropna(subset=['Data_Value', 'Race/Ethnicity'])
