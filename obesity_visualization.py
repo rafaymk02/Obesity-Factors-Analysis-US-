@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 from ipywidgets import interact, Dropdown
 
+#functions to load data
 def load_and_prepare_data():
     df = pd.read_csv('Nutrition__Physical_Activity__and_Obesity_-_Behavioral_Risk_Factor_Surveillance_System.csv')
     obesity_df = df[(df['Class'] == 'Obesity / Weight Status') &
