@@ -207,7 +207,7 @@ def plotML(generalObesity, linRegressML, x):
     title = "Consistent Increased rate of obesity in the US.\nThe rate of obesity in the US in 2024 is predicted to be " + str(predicted2024) + "%"
     plt.title(title)
     plt.plot(x, predictedY, 'r')
-def poverty_visual(df):
+def poverty_visual(poverty_df):
     poverty_df = df.loc[:,["PANEL", "UNIT", "STUB_NAME", "STUB_LABEL", "YEAR", "AGE", "ESTIMATE", "FLAG", "PANEL_NUM"]]
     poverty_df = poverty_df.loc[poverty_df["UNIT"] != "Percent of population, age-adjusted"]
     poverty_df = poverty_df.loc[poverty_df["STUB_NAME"] == "Percent of poverty level"]
